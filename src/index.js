@@ -7,7 +7,7 @@ import addNewTask from './addlist.js';
 import trashCompleted from './completed.js';
 import trashTask from './trashTask.js';
 import editTask from './edit.js';
-import {saveStorage, getStorage} from './storage.js';
+import { saveStorage, getStorage } from './storage.js';
 
 const listContainer = document.querySelector('.container');
 const addNewTaskInput = document.querySelector('#text');
@@ -22,7 +22,7 @@ const populateList = () => {
   const tasks = getStorage();
 
   if (tasks != null) {
-    tasks.forEach((task, index) => {
+    tasks.forEach((task) => {
       const list = document.createElement('li');
       list.classList.add('list');
       list.id = task.index;
@@ -44,8 +44,7 @@ const populateList = () => {
       label.contentEditable = true;
       label.classList.add('label');
       label.innerHTML = task.description;
-      label.style.textDecoration =
-        task.completed === true ? 'line-through' : 'none';
+      label.style.textDecoration = task.completed === true ? 'line-through' : 'none';
       label.style.color = '#444';
       const span = document.createElement('span');
       span.classList.add('dot');
