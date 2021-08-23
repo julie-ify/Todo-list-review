@@ -7,7 +7,7 @@ import addNewTask from './addlist.js';
 import trashCompleted from './completed.js';
 import trashTask from './trashTask.js';
 import editTask from './edit.js';
-import { saveStorage, getStorage } from './storage.js';
+import {saveStorage, getStorage} from './storage.js';
 
 const listContainer = document.querySelector('.container');
 const addNewTaskInput = document.querySelector('#text');
@@ -22,10 +22,10 @@ const populateList = () => {
   const tasks = getStorage();
 
   if (tasks != null) {
-    for (let i = 0; i < tasks.length; i += 1) {
+    tasks.forEach((task, index) => {
       const list = document.createElement('li');
       list.classList.add('list');
-      list.id = tasks[i].index;
+      list.id = task.index;
       list.draggable = true;
 
       const listFChild = document.createElement('div');
@@ -36,15 +36,16 @@ const populateList = () => {
       input.type = 'checkbox';
       input.name = 'check1';
 
-      if (tasks[i].completed) {
+      if (task.completed) {
         input.checked = true;
       }
 
       const label = document.createElement('label');
       label.contentEditable = true;
       label.classList.add('label');
-      label.innerHTML = tasks[i].description;
-      label.style.textDecoration = tasks[i].completed === true ? 'line-through' : 'none';
+      label.innerHTML = task.description;
+      label.style.textDecoration =
+        task.completed === true ? 'line-through' : 'none';
       label.style.color = '#444';
       const span = document.createElement('span');
       span.classList.add('dot');
@@ -55,7 +56,7 @@ const populateList = () => {
       const trash = document.createElement('span');
       trash.innerHTML = "<i class='fas fa-trash-alt'></i>";
       trash.style.display = 'none';
-      trash.id = tasks.indexOf(tasks[i]);
+      trash.id = tasks.indexOf(task);
 
       span.appendChild(dot);
       list.appendChild(listFChild);
@@ -64,7 +65,7 @@ const populateList = () => {
       const children = [input, label, span, trash];
       children.forEach((child) => {
         listFChild.appendChild(child);
-      })
+      });
 
       label.addEventListener('focus', () => {
         span.style.display = 'none';
@@ -86,14 +87,14 @@ const populateList = () => {
         span.style.display = 'flex';
         trash.style.display = 'none';
 
-        editTask(e.target, tasks, tasks[i]);
+        editTask(e.target, tasks, task);
       });
 
       input.addEventListener('change', (e) => {
-        check(e.target, tasks[i]);
+        check(e.target, task);
         saveStorage(tasks);
       });
-    }
+    });
   }
 };
 
