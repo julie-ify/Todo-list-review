@@ -1,12 +1,10 @@
 /* eslint-disable import/no-cycle */
 
-import { saveStorage } from './storage.js';
+import { getStorage, saveStorage } from './storage.js';
 import populateList from './index.js';
 
 const addNewTask = (input) => {
-  const taskList = localStorage.getItem('todo-list')
-    ? JSON.parse(localStorage.getItem('todo-list'))
-    : [];
+  const taskList = getStorage();
   const task = {
     index: taskList.length + 1,
     completed: false,
