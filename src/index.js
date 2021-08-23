@@ -59,11 +59,12 @@ const populateList = () => {
 
       span.appendChild(dot);
       list.appendChild(listFChild);
-      listFChild.appendChild(input);
-      listFChild.appendChild(label);
-      listFChild.appendChild(span);
-      listFChild.appendChild(trash);
       listContainer.appendChild(list);
+
+      const children = [input, label, span, trash];
+      children.forEach((child) => {
+        listFChild.appendChild(child);
+      })
 
       label.addEventListener('focus', () => {
         span.style.display = 'none';
